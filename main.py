@@ -37,11 +37,25 @@ for log in logs:
         failed_logins[ip] += 1 # increment the count of failed login attempts for that IP address
 
 
-#brute force detection: if an IP address has more than 5 failed login attempts, it is flagged as a potential brute force attack
+incidents = []
+#brute force attack detection: if an IP address has 5 or more failed login attempts, it is considered a brute force attack
 for ip, attempts in failed_logins.items():
 
     if attempts >= 5:
-        print("Potential Brute Force Attack Detected")
-        print(f"IP: {ip}")
-        print(f"Failed Login Attempts: {attempts}")
-        print()
+
+        incident = {
+            "type": "Brute Force Attack",
+            "ip": ip,
+            "failed_attempts": attempts,
+            "serverity": "HIGH"
+        }
+
+        incidents.append(incident) # adding the incident to the list of incidents
+
+for incident in incidents: # structuring in human-readable format for better understanding of the incident
+    print("Security Incident Detected")
+    print(f"Type: {incident['type']}")
+    print(f"IP: {incident['ip']}")
+    print(f"Failed Attempts: {incident['failed_attempts']}")
+    print(f"Severity: {incident['serverity']}")
+    print()
