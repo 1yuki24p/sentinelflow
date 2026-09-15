@@ -1,16 +1,15 @@
-def detect_brute_force(logs):
+from models.incident import Incident
 
+
+def detect_brute_force(logs):
     failed_logins = {}
 
-    # Count failed login attempts by IP
     for log in logs:
-
         if (
             log["method"] == "POST"
             and log["path"] == "/login"
             and log["status"] == 401
         ):
-
             ip = log["ip"]
 
             if ip not in failed_logins:
@@ -18,19 +17,18 @@ def detect_brute_force(logs):
 
             failed_logins[ip] += 1
 
-    # Check for brute-force attacks
     incidents = []
 
     for ip, attempts in failed_logins.items():
-
         if attempts >= 5:
-
-            incident = {
-                "type": "Brute Force Attack",
-                "ip": ip,
-                "failed_attempts": attempts,
-                "severity": "HIGH"
-            }
+            incident = Incident(
+                incident_type="Brute Force Attack",
+                ip=ip,
+                severity="HIGH",
+                details={
+                    "failed_attempts": attempts
+                }
+            )
 
             incidents.append(incident)
 
