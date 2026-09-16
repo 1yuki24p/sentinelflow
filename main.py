@@ -3,6 +3,7 @@ from detectors.brute_force import detect_brute_force
 from detectors.suspicious_requests import suspicious_requests
 from utils.output import print_http_error, print_incident
 from models.incident import Incident
+from utils.risk import calculate_risk_score
 
 
 
@@ -26,5 +27,6 @@ incidents.extend(suspicious_incidents)
 
 # Display incidents
 for incident in incidents:
+    incident.risk_score = calculate_risk_score(incident)
     print_incident(incident)
 

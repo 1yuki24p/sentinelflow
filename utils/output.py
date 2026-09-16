@@ -11,6 +11,7 @@ def print_incident(incident):
     print(f"Type: {incident.incident_type}")
     print(f"IP: {incident.ip}")
     print(f"Severity: {incident.severity}")
+    print(f"Risk Score: {incident.risk_score}/100")
 
     if "failed_attempts" in incident.details:
         print(f"Failed Attempts: {incident.details['failed_attempts']}")
