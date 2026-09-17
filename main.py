@@ -4,6 +4,7 @@ from detectors.suspicious_requests import suspicious_requests
 from utils.output import print_http_error, print_incident
 from models.incident import Incident
 from utils.risk import calculate_risk_score
+from detectors.scanning import detect_scanning
 
 
 
@@ -24,6 +25,9 @@ suspicious_incidents = suspicious_requests(logs)
 
 # Adding suspicious-request incidients to our existing incidents list
 incidents.extend(suspicious_incidents)
+
+scanning_incidents = detect_scanning(logs)
+incidents.extend(scanning_incidents)
 
 # Display incidents
 for incident in incidents:

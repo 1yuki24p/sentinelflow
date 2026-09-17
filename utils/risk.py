@@ -24,6 +24,14 @@ def calculate_risk_score(incident):
         if "/etc/passwd" in path:
             evidence_bonus = 10
 
+    elif incident.incident_type == "Scanning":
+        unique_paths = incident.details.get("unique_paths", 0)
+
+        if unique_paths >= 20:
+            evidence_bonus = 20
+        elif unique_paths >= 10:
+            evidence_bonus = 10
+
     final_score = base_score + evidence_bonus
 
     return min(final_score, 100)
