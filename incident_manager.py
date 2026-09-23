@@ -33,6 +33,23 @@ def save_incident(incident):
     connection.close()
 
 
+def get_all_incidents():
+    connection = sqlite3.connect(DATABASE_NAME)
+
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT id, incident_type, ip, severity, risk_score, details
+        FROM incidents
+    """)
+
+    rows = cursor.fetchall()
+
+    connection.close()
+
+    return rows
+
+
 if __name__ == "__main__":
     from models.incident import Incident
 
@@ -49,4 +66,7 @@ if __name__ == "__main__":
 
     save_incident(test_incident)
 
-    print("Incident saved successfully.")
+    incidents = get_all_incidents()
+
+    for incident in incidents:
+        print(incident)
