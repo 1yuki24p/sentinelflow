@@ -49,6 +49,23 @@ def get_all_incidents():
 
     return rows
 
+def get_incidents_by_ip(ip):
+    connection = sqlite3.connect(DATABASE_NAME)
+
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT id, incident_type, ip, severity, risk_score, details
+        FROM incidents
+        WHERE ip = ?
+    """, (ip,))
+
+    rows = cursor.fetchall()
+
+    connection.close()
+
+    return rows
+
 
 if __name__ == "__main__":
     from models.incident import Incident
@@ -62,7 +79,7 @@ if __name__ == "__main__":
         }
     )
 
-    test_incident.risk_score = 25
+    test_incident.risk_score = 85
 
     save_incident(test_incident)
 
