@@ -4,8 +4,9 @@ import json
 from database import DATABASE_NAME
 
 
-def save_incident(incident):
-    connection = sqlite3.connect(DATABASE_NAME)
+def save_incident(incident, database_name=DATABASE_NAME):
+    connection = sqlite3.connect(database_name)
+    
 
     cursor = connection.cursor()
 
@@ -33,8 +34,8 @@ def save_incident(incident):
     connection.close()
 
 
-def get_all_incidents():
-    connection = sqlite3.connect(DATABASE_NAME)
+def get_all_incidents(database_name=DATABASE_NAME):
+    connection = sqlite3.connect(database_name)
 
     cursor = connection.cursor()
 
@@ -49,8 +50,8 @@ def get_all_incidents():
 
     return rows
 
-def get_incidents_by_ip(ip):
-    connection = sqlite3.connect(DATABASE_NAME)
+def get_incidents_by_ip(ip, database_name=DATABASE_NAME):
+    connection = sqlite3.connect(database_name)
 
     cursor = connection.cursor()
 
