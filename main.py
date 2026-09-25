@@ -5,6 +5,7 @@ from utils.output import print_http_error, print_incident
 from models.incident import Incident
 from utils.risk import calculate_risk_score
 from detectors.scanning import detect_scanning
+from incident_manager import save_incident
 
 
 
@@ -32,5 +33,8 @@ incidents.extend(scanning_incidents)
 # Display incidents
 for incident in incidents:
     incident.risk_score = calculate_risk_score(incident)
+
+    save_incident(incident)
+
     print_incident(incident)
 

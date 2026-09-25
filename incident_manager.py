@@ -67,23 +67,3 @@ def get_incidents_by_ip(ip):
     return rows
 
 
-if __name__ == "__main__":
-    from models.incident import Incident
-
-    test_incident = Incident(
-        incident_type="Test Incident",
-        ip="127.0.0.1",
-        severity="LOW",
-        details={
-            "message": "Testing incident manager"
-        }
-    )
-
-    test_incident.risk_score = 85
-
-    save_incident(test_incident)
-
-    incidents = get_all_incidents()
-
-    for incident in incidents:
-        print(incident)
