@@ -2,8 +2,9 @@ import sqlite3
 
 DATABASE_NAME = "sentinelflow.db"
 
-def create_database():
-    connection = sqlite3.connect(DATABASE_NAME)
+
+def create_database(database_name=DATABASE_NAME):
+    connection = sqlite3.connect(database_name)
 
     cursor = connection.cursor()
 
@@ -15,9 +16,7 @@ def create_database():
             severity TEXT NOT NULL,
             risk_score INTEGER NOT NULL,
             details TEXT
-
         )
-    
     """)
 
     connection.commit()
